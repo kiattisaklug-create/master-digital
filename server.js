@@ -118,13 +118,34 @@ http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     // content.js / html ไม่เก็บ cache นาน เพื่อให้แก้ข้อมูลแล้วเห็นผลทันที
     const fresh = ext === ".html" || path.basename(filePath) === "content.js";
-    res.writeHead(200, {
+    const headers = {
       "Content-Type": TYPES[ext] || "application/octet-stream",
-      "Content-Length": stat.size,
-      "Cache-Control": fresh ? "no-cache" : "public, max-age=86400",
+      "Accept-Ranges": "bytes",
+      // วิดีโอ/รูปมีชื่อไฟล์ใหม่ทุกครั้งที่อัปโหลด จึงเก็บ cache ได้นาน
+      "Cache-Control": fresh ? "no-cache" : (filePath.includes(path.sep + "videos" + path.sep) ? "public, max-age=2592000, immutable" : "public, max-age=86400"),
       "X-Content-Type-Options": "nosniff",
       "Referrer-Policy": "strict-origin-when-cross-origin"
-    });
+    };
+    // รองรับการเล่นวิดีโอทีละช่วง (จำเป็นสำหรับ iPhone / Safari)
+    const range = req.headers.range;
+    if (range) {
+      const m = /bytes=(\d*)-(\d*)/.exec(range);
+      let start = m && m[1] ? parseInt(m[1], 10) : 0;
+      let end = m && m[2] ? parseInt(m[2], 10) : stat.size - 1;
+      if (m && !m[1] && m[2]) { start = Math.max(0, stat.size - parseInt(m[2], 10)); end = stat.size - 1; }
+      if (!m || start >= stat.size || start > end) {
+        res.writeHead(416, { "Content-Range": "bytes */" + stat.size });
+        return res.end();
+      }
+      end = Math.min(end, stat.size - 1);
+      headers["Content-Range"] = "bytes " + start + "-" + end + "/" + stat.size;
+      headers["Content-Length"] = end - start + 1;
+      res.writeHead(206, headers);
+      if (req.method === "HEAD") return res.end();
+      return fs.createReadStream(filePath, { start, end }).pipe(res);
+    }
+    headers["Content-Length"] = stat.size;
+    res.writeHead(200, headers);
     if (req.method === "HEAD") return res.end();
     fs.createReadStream(filePath).pipe(res);
   });
