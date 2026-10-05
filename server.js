@@ -4,6 +4,9 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
+const notify = require("./notify");
+const vm = require("vm");
+
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
@@ -26,7 +29,65 @@ const TYPES = {
 };
 
 // ไฟล์ที่ไม่ให้คนภายนอกเปิดดู
-const BLOCKED = new Set(["server.js", "package.json", ".gitignore"]);
+const BLOCKED = new Set(["server.js", "notify.js", "package.json", ".gitignore"]);
+
+// อ่านชื่อโปรแกรมจาก content.js เพื่อใช้ในข้อความแจ้งเตือน
+let names = {}, namesAt = 0;
+function productName(id) {
+  if (Date.now() - namesAt > 60000) {
+    try {
+      const box = { window: {} };
+      vm.runInNewContext(fs.readFileSync(path.join(ROOT, "content.js"), "utf8"), box, { timeout: 200 });
+      names = {};
+      (box.window.SITE && box.window.SITE.products || []).forEach((p) => { if (p && p.id) names[p.id] = String(p.name || p.id); });
+      namesAt = Date.now();
+    } catch (e) { console.error("อ่าน content.js ไม่ได้:", e.message); }
+  }
+  return names[id];
+}
+
+function readBody(req, limit) {
+  return new Promise((resolve, reject) => {
+    const chunks = []; let size = 0;
+    req.on("data", (c) => { size += c.length; if (size > limit) { reject(new Error("too large")); req.destroy(); } else chunks.push(c); });
+    req.on("end", () => resolve(Buffer.concat(chunks)));
+    req.on("error", reject);
+  });
+}
+
+// กันการยิงซ้ำ: ไม่เกิน 30 ครั้งต่อนาทีต่อเครื่อง
+const hits = new Map();
+function limited(ip) {
+  const now = Date.now(), h = hits.get(ip) || [];
+  const recent = h.filter((t) => now - t < 60000); recent.push(now); hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear();
+  return recent.length > 30;
+}
+const clientIp = (req) => String(req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+
+async function api(req, res, urlPath) {
+  if (urlPath === "/api/visit" && req.method === "POST") {
+    try {
+      const ip = clientIp(req);
+      if (limited(ip)) return send(res, 429, "slow down");
+      const body = JSON.parse((await readBody(req, 4096)).toString("utf8") || "{}");
+      const page = body.page === "product" ? (productName(String(body.id || "")) || "หน้ารายละเอียดโปรแกรม") : "หน้าแรก";
+      notify.recordVisit({ ip, ua: String(req.headers["user-agent"] || ""), page, ref: String(body.ref || "").slice(0, 300) });
+    } catch (e) { /* ข้อมูลผิดรูปแบบ ไม่นับ */ }
+    return send(res, 204, "");
+  }
+  if (urlPath === "/api/line-webhook" && req.method === "POST") {
+    try {
+      const raw = await readBody(req, 1024 * 1024);
+      const code = await notify.handleWebhook(raw, req.headers["x-line-signature"]);
+      return send(res, code, code === 200 ? "ok" : "rejected");
+    } catch (e) { return send(res, 400, "bad request"); }
+  }
+  if (urlPath === "/api/notify-status") {
+    return send(res, 200, JSON.stringify(notify.status()), TYPES[".json"]);
+  }
+  return send(res, 404, "Not found");
+}
 
 function send(res, status, body, type) {
   res.writeHead(status, { "Content-Type": type || "text/plain; charset=utf-8" });
@@ -38,6 +99,7 @@ http.createServer((req, res) => {
   try { urlPath = decodeURIComponent(req.url.split("?")[0]); }
   catch { return send(res, 400, "Bad request"); }
 
+  if (urlPath.startsWith("/api/")) return api(req, res, urlPath);
   if (urlPath === "/") urlPath = "/index.html";
   if (urlPath === "/product") urlPath = "/product.html";
 
