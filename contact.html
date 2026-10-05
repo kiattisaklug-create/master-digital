@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ติดต่อเรา — MASTER DIGITAL</title>
+<meta name="description" content="ช่องทางติดต่อ MASTER DIGITAL ทาง LINE โทรศัพท์ และอีเมล">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Prompt:wght@300;400;500&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body data-page="contact">
+
+<header class="top is-solid" id="top">
+  <div class="top__in">
+    <a class="brand" href="index.html" aria-label="หน้าแรก">
+      <span class="brand__mark" data-bind="brandShort">MD</span>
+      <span class="brand__name" data-bind="brand">MASTER DIGITAL</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="เมนูหลัก">
+      <a href="index.html#collection">โปรแกรม</a>
+      <a href="index.html#versions">เวอร์ชันล่าสุด</a>
+      <a href="index.html#faq">คำถาม</a>
+      <a href="contact.html">ติดต่อ</a>
+    </nav>
+    <a class="btn btn--gold btn--sm js-line" href="contact.html">คุยทาง LINE</a>
+    <button class="menu" id="menuBtn" aria-label="เปิดเมนู" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="l-hero">
+    <div class="wrap">
+      <h1 class="l-hero__title">ติดต่อเรา</h1>
+      <p class="l-hero__text">สอบถามโปรแกรม ขอใบเสนอราคา นัดสาธิต หรือแจ้งปัญหาการใช้งาน คุยกับผู้พัฒนาได้โดยตรง</p>
+    </div>
+  </section>
+
+  <section class="legal">
+    <div class="wrap">
+      <div class="cgrid">
+        <div class="ccard ccard--line">
+          <div>
+            <h2>คุยทาง LINE</h2>
+            <p>ช่องทางที่ตอบเร็วที่สุด ตอบกลับ<span data-biz="replyTime"></span></p>
+            <span class="id" data-biz="lineId"></span>
+            <a class="btn btn--gold" href="#" data-line-msg="สวัสดีครับ/ค่ะ สอบถามเรื่องโปรแกรมของ MASTER DIGITAL">ส่งข้อความทาง LINE</a>
+          </div>
+          <img src="assets/qr/line-qr.svg" alt="QR code สำหรับเพิ่มเพื่อน LINE" width="150" height="150">
+        </div>
+
+        <div class="ccard">
+          <h3>ช่องทางอื่น</h3>
+          <div class="crow" data-biz-row="phone"><span>โทรศัพท์</span><a data-biz-link="phone" href="#"><span data-biz="phone"></span></a></div>
+          <div class="crow" data-biz-row="email"><span>อีเมล</span><a data-biz-link="email" href="#"><span data-biz="email"></span></a></div>
+          <div class="crow" data-biz-row="hours"><span>เวลาทำการ</span><b data-biz="hours"></b></div>
+          <div class="crow" data-biz-row="replyTime"><span>ระยะเวลาตอบกลับ</span><b data-biz="replyTime"></b></div>
+        </div>
+
+        <div class="ccard">
+          <h3>ข้อมูลผู้ให้บริการ</h3>
+          <div class="crow"><span>ผู้ให้บริการ</span><b data-biz="legalName"></b></div>
+          <div class="crow" data-biz-row="entityType"><span>ประเภทผู้ประกอบการ</span><b data-biz="entityType"></b></div>
+          <div class="crow" data-biz-row="taxId"><span>เลขประจำตัวผู้เสียภาษี</span><b data-biz="taxId"></b></div>
+          <div class="crow" data-biz-row="address"><span>ที่อยู่</span><b data-biz="address"></b></div>
+        </div>
+      </div>
+
+      <h2 class="c-sub">ติดต่อเรื่องอะไร</h2>
+      <div class="topics">
+        <a class="topic" href="#" data-line-msg="ขอใบเสนอราคาโปรแกรม: (ระบุชื่อโปรแกรม) สำหรับ (ชื่อคลินิก/ธุรกิจ)"><b>ขอใบเสนอราคา หรือนัดสาธิต</b><span>บอกชื่อโปรแกรมและประเภทธุรกิจ ผู้พัฒนาจะแนะนำแพ็กเกจที่เหมาะให้</span></a>
+        <a class="topic" href="#" data-line-msg="แจ้งปัญหาการใช้งานโปรแกรม: (ระบุชื่อโปรแกรมและอาการ)"><b>แจ้งปัญหาการใช้งาน</b><span>ส่งชื่อโปรแกรม อาการที่พบ และภาพหน้าจอ เพื่อให้แก้ไขได้เร็ว</span></a>
+        <a class="topic" href="refund.html"><b>ยกเลิกแพ็กเกจหรือขอคืนเงิน</b><span>อ่านเงื่อนไขและขั้นตอนในนโยบายคืนเงิน</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav class="foot__links" aria-label="ข้อมูลและนโยบาย">
+      <a href="contact.html" aria-current="page">ติดต่อเรา</a>
+      <a href="refund.html">นโยบายคืนเงิน</a>
+      <a href="terms.html">เงื่อนไขการใช้บริการ</a>
+      <a href="privacy.html">นโยบายความเป็นส่วนตัว</a>
+    </nav>
+    <div class="foot__in">
+      <span>© <span id="year"></span> <span data-bind="brand"></span></span>
+      <span class="muted">พัฒนาโดย <span data-bind="owner"></span></span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-line js-line" href="contact.html" aria-label="คุยทาง LINE">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5 1.1-.5 6-3.5 8.2-6C21.6 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z" fill="currentColor"/></svg>
+</a>
+
+<script src="content.js"></script>
+<script src="business.js"></script>
+<script src="script.js"></script>
+<script src="legal.js"></script>
+<script src="pulse.js"></script>
+</body>
+</html>

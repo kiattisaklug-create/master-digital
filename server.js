@@ -71,7 +71,8 @@ async function api(req, res, urlPath) {
       const ip = clientIp(req);
       if (limited(ip)) return send(res, 429, "slow down");
       const body = JSON.parse((await readBody(req, 4096)).toString("utf8") || "{}");
-      const page = body.page === "product" ? (productName(String(body.id || "")) || "หน้ารายละเอียดโปรแกรม") : "หน้าแรก";
+      const PAGES = { contact: "ติดต่อเรา", refund: "นโยบายคืนเงิน", terms: "เงื่อนไขการใช้บริการ", privacy: "นโยบายความเป็นส่วนตัว" };
+      const page = body.page === "product" ? (productName(String(body.id || "")) || "หน้ารายละเอียดโปรแกรม") : (PAGES[body.page] || "หน้าแรก");
       notify.recordVisit({ ip, ua: String(req.headers["user-agent"] || ""), page, ref: String(body.ref || "").slice(0, 300) });
     } catch (e) { /* ข้อมูลผิดรูปแบบ ไม่นับ */ }
     return send(res, 204, "");
@@ -102,6 +103,7 @@ http.createServer((req, res) => {
   if (urlPath.startsWith("/api/")) return api(req, res, urlPath);
   if (urlPath === "/") urlPath = "/index.html";
   if (urlPath === "/product") urlPath = "/product.html";
+  if (["/contact", "/refund", "/terms", "/privacy"].includes(urlPath)) urlPath += ".html";
 
   const filePath = path.normalize(path.join(ROOT, urlPath));
   if (!filePath.startsWith(ROOT) || BLOCKED.has(path.basename(filePath)) || path.basename(filePath).startsWith(".")) {

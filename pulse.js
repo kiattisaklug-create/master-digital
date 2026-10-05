@@ -9,9 +9,10 @@
     if (localStorage.getItem("md_notrack") === "1") return;
   } catch (e) {}
   if (location.protocol === "file:") return;   // เปิดไฟล์บนคอมเฉยๆ ไม่นับ
-  var isProduct = document.body.getAttribute("data-page") === "product";
+  var pageKey = document.body.getAttribute("data-page") || "home";
+  var isProduct = pageKey === "product";
   var data = JSON.stringify({
-    page: isProduct ? "product" : "home",
+    page: pageKey,
     id: isProduct ? new URLSearchParams(location.search).get("id") : "",
     ref: document.referrer && document.referrer.indexOf(location.host) === -1 ? document.referrer : ""
   });
