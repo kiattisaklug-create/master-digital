@@ -71,7 +71,7 @@ window.SITE = {
         }
       ],
       "description": "ระบบหลังบ้านสำหรับคลินิกศัลยกรรมและความงาม รวมงานคนไข้ OPD ยา เอกสาร และการติดต่อผ่าน LINE OA ไว้ในที่เดียว ออกแบบจากการใช้งานจริงใน MASTER CLINIC",
-      "featured": true,
+      "featured": false,
       "features": [
         "แดชบอร์ดภาพรวมคลินิก",
         "ข้อมูลคนไข้และประวัติ OPD",
@@ -138,7 +138,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "จัดเก็บภาพก่อน-หลังผ่าตัด 8 มุมมาตรฐาน อัตโนมัติ",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "คลินิกที่ต้องการคุมสต็อกและต้นทุนให้แม่นยำ",
@@ -172,7 +173,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "เช็กสต็อกเวชภัณฑ์คลินิกผ่าน LINE ได้ทันที",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "คลินิกที่ทำงานร่วมกับตัวแทนหรือนายหน้าแนะนำลูกค้า",
@@ -206,7 +208,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "ระบบทีมตัวแทนขาย ส่งเคส ตรวจเคส และคิดค่าคอมมิชชัน",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "คลินิกที่ต้องการระบบจัดซื้อที่ตรวจสอบย้อนหลังได้",
@@ -239,7 +242,8 @@ window.SITE = {
       ],
       "status": "soon",
       "tagline": "ใบสั่งซื้อและการจัดซื้อของคลินิก ออก PDF ได้ทันที",
-      "version": "Beta"
+      "version": "Beta",
+      "featured": false
     },
     {
       "audience": "คลินิก ร้านค้า และครีเอเตอร์ที่ต้องทำคอนเทนต์ทุกวัน",
@@ -273,7 +277,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "สร้าง carousel สำหรับ TikTok, Instagram และ Facebook ทีละขั้น",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "ครีเอเตอร์และนักขายแอฟฟิลิเอตที่ลงคลิปหลายแพลตฟอร์ม",
@@ -307,7 +312,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "คลิปเดียว แคปชันเดียว ลง TikTok, Facebook Reels และ Shopee พร้อมกัน",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "เพจรีวิวสินค้าและนักขายแอฟฟิลิเอต",
@@ -339,7 +345,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "ลง Reels สินค้าบนเพจ Facebook อัตโนมัติ พร้อมลิงก์สินค้า",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "คลินิกและธุรกิจที่ดูแลหลายบัญชีโซเชียล",
@@ -372,7 +379,8 @@ window.SITE = {
       ],
       "status": "soon",
       "tagline": "เชื่อมบัญชี Facebook, Instagram, TikTok อัปโหลดครั้งเดียวขึ้นทุกที่",
-      "version": "Beta"
+      "version": "Beta",
+      "featured": false
     },
     {
       "audience": "ร้านค้า คลินิก และคนที่อยากมีสติกเกอร์ของตัวเอง",
@@ -404,7 +412,8 @@ window.SITE = {
       ],
       "status": "soon",
       "tagline": "สร้างสติกเกอร์ LINE ลายการ์ตูนของคุณเอง",
-      "version": "Beta"
+      "version": "Beta",
+      "featured": false
     },
     {
       "audience": "แพทย์ เจ้าของธุรกิจ และทุกคนที่นัดหมายเยอะ",
@@ -437,7 +446,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "พิมพ์หรือพูดนัดหมายใน LINE แล้วได้ตารางงานสวยพร้อมพิมพ์",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "คลินิกและธุรกิจขนาดเล็กที่มีค่าใช้จ่ายย่อยหลายรายการ",
@@ -469,7 +479,8 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "ทีมส่งค่าใช้จ่ายผ่าน LINE สรุปออก Excel ได้ทันที",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
     },
     {
       "audience": "คลินิกและร้านค้าที่มีลูกค้าทักผ่าน LINE จำนวนมาก",
@@ -502,7 +513,69 @@ window.SITE = {
       ],
       "status": "ready",
       "tagline": "รวมแชทลูกค้า LINE OA แจ้งเตือนทันที เก็บข้อความและรูปถาวร",
-      "version": "V1"
+      "version": "V1",
+      "featured": false
+    },
+    {
+      "id": "new-muxosw1g",
+      "name": "Master Video Studio",
+      "mark": "MV",
+      "category": "content",
+      "status": "ready",
+      "version": "V1",
+      "tagline": "จากคลิปในมือถือ สู่วิดีโอโปรระดับสตูดิโอ ตัดต่อคลิปเป็นวิดีโอ 4 K ปังใน 3 คลิก ไม่ต้องมีพื้นฐานตัดต่อ",
+      "description": "MASTER Video Studio คือโปรแกรมตัดต่อวิดีโอที่ติดตั้งและใช้งานบนคอมพิวเตอร์ของคุณเอง ออกแบบมาให้คนที่ไม่มีพื้นฐานตัดต่อก็ทำวิดีโอโฆษณาแนวตั้ง 9:16 ความละเอียด 4K ได้ในไม่กี่คลิก โปรแกรมจะช่วยคัดคลิปที่คมชัดที่สุดให้อัตโนมัติ  ใส่ซับไตเติลอัตโนมัติแบบคำโดดดึงดูดสายตาพร้อมฟีเจอร์ที่กำลังเป็นกระแสครบ",
+      "audience": "เจ้าของธุรกิจ/คลินิก/ร้านค้า/ ครีเอเตอร์ TikTok/Instagram/Facebook ที่อยากทำคอนเทนต์โฆษณาเองแต่ไม่มีเวลาหรือทีมตัดต่อ",
+      "features": [],
+      "plans": [
+        {
+          "name": "แพ็กเกจหลัก",
+          "price": "สอบถามราคา",
+          "note": ""
+        }
+      ],
+      "image": "assets/products/new-muxosw1g-img-261007125738.webp",
+      "link": "",
+      "changelog": [
+        {
+          "version": "V1",
+          "date": "ต.ค. 2569",
+          "text": "เปิดตัว"
+        }
+      ],
+      "videos": [
+        {
+          "title": "",
+          "file": "",
+          "poster": "",
+          "w": 0,
+          "h": 0,
+          "duration": 0,
+          "size": 0,
+          "active": false
+        },
+        {
+          "title": "",
+          "file": "",
+          "poster": "",
+          "w": 0,
+          "h": 0,
+          "duration": 0,
+          "size": 0,
+          "active": false
+        },
+        {
+          "title": "",
+          "file": "",
+          "poster": "",
+          "w": 0,
+          "h": 0,
+          "duration": 0,
+          "size": 0,
+          "active": false
+        }
+      ],
+      "featured": true
     }
   ],
   "statusNames": {
