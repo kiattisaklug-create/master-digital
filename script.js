@@ -42,7 +42,17 @@
   $$(".js-line").forEach(function (el) {
     if (lineAdd) { el.href = lineAdd; el.target = "_blank"; el.rel = "noopener"; }
   });
-  if (C.lineQr) $$(".js-qr").forEach(function (el) { el.src = C.lineQr; });
+  // QR LINE: สร้างจาก LINE ID อัตโนมัติ (ถ้าใส่รูป QR เองใน lineQr ที่ไม่ใช่ไฟล์เดิม จะใช้รูปนั้นแทน)
+  var customQr = C.lineQr && C.lineQr !== "assets/qr/line-qr.svg" ? C.lineQr : "";
+  window.MD_QR = function (id) {
+    if (!id || typeof window.qrcode !== "function") return "";
+    try {
+      var q = window.qrcode(0, "M"); q.addData("https://line.me/R/ti/p/" + id); q.make();
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(q.createSvgTag({ cellSize: 8, margin: 2, scalable: true }));
+    } catch (e) { return ""; }
+  };
+  var qrSrc = customQr || window.MD_QR(lineId);
+  if (qrSrc) $$(".js-qr").forEach(function (el) { el.src = qrSrc; });
   var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 
   /* ---------- เมนูมือถือ + แถบด้านบน ---------- */
@@ -77,14 +87,24 @@
   /* ---------- ชิ้นส่วนการ์ด ---------- */
   var ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
   function chip(s) { return statusName(s) ? '<span class="chip chip--' + esc(s) + '">' + esc(statusName(s)) + "</span>" : ""; }
+  function medal(p, cls) {
+    if (p.image) return '<span class="medal medal--img' + (cls ? " " + cls : "") + '"><img src="' + esc(p.image) + '" alt="" loading="lazy"></span>';
+    return '<span class="medal' + (cls ? " " + cls : "") + '">' + esc(p.mark || (p.name || "?").slice(0, 2)) + "</span>";
+  }
+  function priceLine(p) {
+    var out = "";
+    if (p.priceFrom) out += '<span class="price-from"><small>เริ่มต้น</small> ' + esc(p.priceFrom) + "</span>";
+    if (p.trial) out += '<span class="trial">' + esc(p.trial) + "</span>";
+    return out ? '<div class="card__price">' + out + "</div>" : "";
+  }
   function card(p, i) {
     var n = activeVideos(p).length;
     return '<a class="card" style="--i:' + (i || 0) + ";--c:" + catColor(p.category) + '" href="' + productUrl(p) + '">' +
-      '<div class="card__top"><span class="medal">' + esc(p.mark || (p.name || "?").slice(0, 2)) + "</span>" + chip(p.status) + "</div>" +
+      '<div class="card__top">' + medal(p) + chip(p.status) + "</div>" +
       '<h3 class="card__name">' + esc(p.name) + "</h3>" +
-      '<p class="card__tag">' + esc(p.tagline) + "</p>" +
-      '<div class="card__foot"><span class="ver">' + esc(p.version) + "</span>" +
-      (n ? '<span class="card__vids">' + ICON_PLAY + "วิดีโอ " + n + "</span>" : "") +
+      '<p class="card__tag">' + esc(p.tagline) + "</p>" + priceLine(p) +
+      '<div class="card__foot">' +
+      (n ? '<span class="card__vids">' + ICON_PLAY + "วิดีโอ " + n + "</span>" : '<span class="ver">' + esc(p.version) + "</span>") +
       '<span class="card__more">ดูรายละเอียด</span></div></a>';
   }
 
@@ -102,11 +122,19 @@
       var showFeat = featured && (current === "all" || featured.category === current);
       feat.innerHTML = showFeat ?
         '<a class="feature" style="--c:' + catColor(featured.category) + '" href="' + productUrl(featured) + '">' +
-          '<span class="medal">' + esc(featured.mark) + "</span>" +
-          '<div><p class="feature__label">' + esc(catName(featured.category)) + '</p><h3 class="feature__name">' + esc(featured.name) + '</h3><p class="feature__tag">' + esc(featured.tagline) + "</p></div>" +
+          medal(featured) +
+          '<div><p class="feature__label">' + esc(catName(featured.category)) + '</p><h3 class="feature__name">' + esc(featured.name) + '</h3><p class="feature__tag">' + esc(featured.headline || featured.tagline) + "</p>" + priceLine(featured) + "</div>" +
           '<div class="feature__side">' + chip(featured.status) + (activeVideos(featured).length ? '<span class="card__vids" style="color:#F7D57A">' + ICON_PLAY + "วิดีโอสาธิต " + activeVideos(featured).length + "</span>" : "") + '<span class="btn btn--gold btn--sm">ดูรายละเอียด</span></div></a>' : "";
       var list = products.filter(function (p) { return p !== (showFeat ? featured : null) && (current === "all" || p.category === current); });
-      grid.innerHTML = list.map(card).join("");
+      if (current === "all" && cats.length > 1) {
+        var k = 0;
+        grid.innerHTML = cats.map(function (c) {
+          var items = list.filter(function (p) { return p.category === c.id; });
+          if (!items.length) return "";
+          return '<div class="grid__group" style="--c:' + catColor(c.id) + '"><h3>' + esc(c.name) + "</h3>" + (c.text ? "<p>" + esc(c.text) + "</p>" : "") + "</div>" +
+            items.map(function (p) { return card(p, k++); }).join("");
+        }).join("") + list.filter(function (p) { return !catOf(p.category); }).map(card).join("");
+      } else grid.innerHTML = list.map(card).join("");
       if (!reduce) requestAnimationFrame(function () { $$(".card", grid).forEach(function (c) { c.classList.add("is-in"); }); });
     }
     filters.addEventListener("click", function (e) {
@@ -325,46 +353,202 @@
     }
   }
 
-  /* ===================== หน้ารายละเอียด ===================== */
+  /* ===================== หน้ารายละเอียด (หน้าขาย) ===================== */
   if (document.body.getAttribute("data-page") === "product") {
     var id = new URLSearchParams(location.search).get("id");
     var p = products.filter(function (x) { return x.id === id; })[0];
     if (!p) {
       $("#product").hidden = true; $("#notFound").hidden = false;
-    } else {
-      document.title = p.name + " — " + (S.brand || "");
-      document.body.style.setProperty("--c", catColor(p.category));
-      $("#pMark").textContent = p.mark || p.name.slice(0, 2);
-      $("#pStatus").className = "chip chip--" + p.status; $("#pStatus").textContent = statusName(p.status);
-      if (!statusName(p.status)) $("#pStatus").hidden = true;
-      $("#pVersion").textContent = p.version || "";
-      $("#pCat").textContent = catName(p.category);
-      $("#pName").textContent = p.name;
-      $("#pTag").textContent = p.tagline || "";
-      $("#pDesc").textContent = p.description || p.tagline || "";
-      $("#pAudience").textContent = p.audience || "";
-      if (!p.audience) $("#pAudience").parentNode.hidden = true;
-      $("#pFeatures").innerHTML = arr(p.features).map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("");
-      $("#pLog").innerHTML = arr(p.changelog).map(function (c) {
-        return "<li><b>" + esc(c.version) + "</b><span>" + esc(c.date) + "</span><p>" + esc(c.text) + "</p></li>";
-      }).join("");
-      if (!arr(p.changelog).length) $("#pLog").parentNode.hidden = true;
-      if (p.image) { $("#pImg").src = p.image; $("#pImg").alt = "หน้าจอโปรแกรม " + p.name; $("#pShot").hidden = false; }
-      if (p.link) { $("#pLink").href = p.link; $("#pLink").hidden = false; }
-      var vh = $("#pVideos"); if (vh && renderVideos(p, vh)) vh.hidden = false;
+    } else renderProduct(p);
+  }
 
-      var ask = lineMsg("สนใจโปรแกรม " + p.name + " ขอรายละเอียดเพิ่มเติม");
-      if (ask) { $("#pAsk").href = ask; $("#pAsk").target = "_blank"; $("#pAsk").rel = "noopener"; }
-      $("#pPlans").innerHTML = arr(p.plans).map(function (pl) {
-        var link = lineMsg("สนใจ " + p.name + " แพ็กเกจ " + pl.name);
-        return '<div class="plan"><h3 class="plan__name">' + esc(pl.name) + '</h3><p class="plan__price">' + esc(pl.price) + '</p><p class="plan__note">' + esc(pl.note || "") + "</p>" +
-          (link ? '<a class="btn btn--gold btn--sm" href="' + link + '" target="_blank" rel="noopener">ขอใบเสนอราคา</a>' : "") + "</div>";
-      }).join("");
-      if (!arr(p.plans).length) $(".p-plans").hidden = true;
+  function txt(sel, v) { var e = $(sel); if (e) e.textContent = v || ""; return e; }
+  function show(sel, on) { var e = $(sel); if (e) e.hidden = !on; return e; }
+  function paras(t) { return String(t || "").split(/\n+/).filter(Boolean).map(function (x) { return "<p>" + esc(x) + "</p>"; }).join(""); }
+  function lines(v) { return Array.isArray(v) ? v.filter(Boolean) : (v ? [v] : []); }
 
-      var more = products.filter(function (x) { return x.category === p.category && x.id !== p.id; });
-      $("#pMore").innerHTML = more.map(card).join("");
-      if (!more.length) $(".p-more").hidden = true;
+  function renderProduct(p) {
+    var color = catColor(p.category);
+    document.title = p.name + " — " + (S.brand || "");
+    var md = document.querySelector('meta[name="description"]');
+    if (!md) { md = document.createElement("meta"); md.name = "description"; document.head.appendChild(md); }
+    md.content = p.tagline || p.description || "";
+    document.body.style.setProperty("--c", color);
+
+    // หัวหน้า
+    $("#pMark").outerHTML = medal(p, "medal--sm");
+    txt("#pName", p.name); txt("#pName2", p.name);
+    var st = $("#pStatus"); st.className = "chip chip--" + p.status; st.textContent = statusName(p.status); st.hidden = !statusName(p.status);
+    txt("#pHeadline", p.headline || p.tagline || p.name);
+    txt("#pDesc", p.description || (p.headline ? p.tagline : ""));
+    var badges = [];
+    if (p.trial) badges.push('<span class="trial trial--lg">' + esc(p.trial) + "</span>");
+    if (p.priceFrom) badges.push('<span class="price-from price-from--lg"><small>เริ่มต้น</small> ' + esc(p.priceFrom) + "</span>");
+    $("#pBadges").innerHTML = badges.join("");
+    if (p.link) { $("#pLink").href = p.link; $("#pLink").hidden = false; }
+    var ask = lineMsg("สนใจโปรแกรม " + p.name + " ขอรายละเอียดเพิ่มเติม");
+    ["#pAsk", "#pAsk2", "#scAsk"].forEach(function (s2) { var a = $(s2); if (a && ask) { a.href = ask; a.target = "_blank"; a.rel = "noopener"; } });
+    renderVisual(p);
+
+    // วิดีโอ
+    var vh = $("#pVideos"); if (vh && renderVideos(p, vh)) vh.hidden = false;
+
+    // ปัญหา / เรื่องเล่า
+    var probs = lines(p.problems);
+    if (probs.length) {
+      txt("#pProblemsTitle", p.problemsTitle || "เคยเป็นแบบนี้ไหม?");
+      $("#pProblems").innerHTML = probs.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("");
+      if (p.problemsAnswer) { txt("#pProblemsAnswer", p.problemsAnswer); show("#pProblemsAnswer", true); }
+      show("#pProblemsBox", true);
     }
+    if (p.story) {
+      txt("#pStoryTitle", p.storyTitle || ""); show("#pStoryTitle", !!p.storyTitle);
+      $("#pStory").innerHTML = paras(p.story);
+      show("#pStoryBox", true);
+    }
+    if (probs.length || p.story) { show("#pPain", true); $("#pPain").classList.toggle("is-both", !!(probs.length && p.story)); }
+
+    // จุดเด่น
+    var hl = arr(p.highlights).filter(function (h) { return h && (h.title || h.text); });
+    if (!hl.length) hl = lines(p.features).map(function (f) { return { icon: "", title: f, text: "" }; });
+    if (hl.length) {
+      var hg = $("#pHighlights");
+      hg.classList.toggle("hl-grid--simple", !hl.some(function (h) { return h.text; }));
+      hg.innerHTML = hl.map(function (h) {
+        return '<div class="hl">' + '<span class="hl__icon" aria-hidden="true">' + (h.icon ? esc(h.icon) : "") + "</span>" +
+          '<div><h3 class="hl__title">' + esc(h.title) + "</h3>" + (h.text ? '<p class="hl__text">' + esc(h.text) + "</p>" : "") + "</div></div>";
+      }).join("");
+    }
+        var co = p.callout || {};
+    if (co.title || co.text) { txt("#pCalloutTitle", co.title); show("#pCalloutTitle", !!co.title); txt("#pCalloutText", co.text); show("#pCallout", true); }
+    if (hl.length || co.title || co.text) show("#pFeat", true);
+
+    // ขั้นตอน / เหมาะกับ / ตัวอย่าง / สิ่งที่ต้องมี
+    var fit = 0, steps = lines(p.steps), aud = lines(p.audience), ex = lines(p.examples);
+    if (steps.length) { txt("#pStepsTitle", p.stepsTitle || "เริ่มใช้งานง่าย"); $("#pSteps").innerHTML = steps.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join(""); show("#pStepsBox", true); fit++; }
+    if (aud.length) { $("#pAudience").innerHTML = aud.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join(""); show("#pAudienceBox", true); fit++; }
+    if (ex.length) { txt("#pExamplesTitle", p.examplesTitle || "ลองถามแบบนี้"); $("#pExamples").innerHTML = ex.map(function (t) { return '<span class="chip-q">' + esc(t) + "</span>"; }).join(""); show("#pExamplesBox", true); fit++; }
+    if (p.requirements) { txt("#pReq", p.requirements); show("#pReqBox", true); fit++; }
+    if (fit) { show("#pFit", true); $("#pFit").setAttribute("data-n", String(fit)); }
+
+    renderPlans(p);
+
+    // FAQ
+    var fq = arr(p.faq).filter(function (f) { return f && f.q; });
+    if (fq.length) {
+      $("#pFaq").innerHTML = fq.map(function (f) { return '<details class="qa"><summary>' + esc(f.q) + '</summary><div class="qa__a"><p>' + esc(f.a) + "</p></div></details>"; }).join("");
+      show("#pFaqBox", true);
+    }
+
+    // ปิดการขาย
+    txt("#pCtaTitle", p.ctaTitle || ("สนใจ " + p.name + " ?"));
+    txt("#pCtaText", p.ctaText || "ทักมาทาง LINE ผู้พัฒนาตอบเอง แนะนำแพ็กเกจที่เหมาะกับคุณ");
+    if (p.finePrint) { txt("#pFine", p.finePrint); show("#pFine", true); }
+
+    // ประวัติเวอร์ชัน / โปรแกรมอื่น
+    txt("#pVersion", p.version || "");
+    var log = arr(p.changelog).filter(function (c) { return c && (c.version || c.text); });
+    if (log.length) {
+      $("#pLog").innerHTML = log.map(function (c) { return "<li><b>" + esc(c.version) + "</b><span>" + esc(c.date) + "</span><p>" + esc(c.text) + "</p></li>"; }).join("");
+      show("#pLogBox", true);
+    }
+    var more = products.filter(function (x) { return x.category === p.category && x.id !== p.id; });
+    txt("#pCat", catName(p.category));
+    $("#pMore").innerHTML = more.slice(0, 6).map(card).join("");
+    if (!more.length) show("#pMoreBox", false);
+
+    // แถบติดล่างบนมือถือ
+    var sc = $("#stickyCta");
+    if (sc) {
+      txt("#scLabel", p.priceFrom ? "เริ่มต้น" : p.name);
+      txt("#scPrice", p.priceFrom || p.trial || "สอบถามทาง LINE");
+      sc.hidden = false;
+      var hero = $(".p-hero"), cta = $(".p-cta");
+      var onS = function () {
+        var past = hero.getBoundingClientRect().bottom < 0;
+        var atEnd = cta.getBoundingClientRect().top < window.innerHeight;
+        sc.classList.toggle("is-on", past && !atEnd);
+      };
+      window.addEventListener("scroll", onS, { passive: true }); onS();
+      document.body.classList.add("has-sticky");
+    }
+  }
+
+  // ภาพด้านขวาของหัวหน้า: รูปโปรแกรม + แชทตัวอย่าง (ซ้อนกัน) > อย่างใดอย่างหนึ่ง > เหรียญใหญ่
+  function renderVisual(p) {
+    var host = $("#pVisual"), chat = arr(p.chat).filter(function (c) { return c && (c.q || c.a); });
+    var shot = $("#pShot"); if (shot) shot.remove();
+    var html = "";
+    if (p.image) html += '<figure class="hero-art"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '"></figure>';
+    if (chat.length) {
+      html += '<div class="phone" aria-label="ตัวอย่างการใช้งานในแชท">' +
+        '<div class="phone__bar"><span class="phone__av">' + esc(p.mark || "") + "</span><b>" + esc(p.name) + "</b></div>" +
+        '<div class="phone__body">' + chat.map(function (c, i) {
+          return (c.q ? '<div class="bub bub--me" style="--d:' + (i * 2) + '">' + esc(c.q) + "</div>" : "") +
+                 (c.a ? '<div class="bub bub--bot" style="--d:' + (i * 2 + 1) + '">' + esc(c.a) + "</div>" : "");
+        }).join("") + "</div>" +
+        '<p class="phone__note">ตัวอย่างการใช้งาน</p></div>';
+    }
+    if (!html) {
+      host.innerHTML = '<div class="medal medal--xl" aria-hidden="true">' + esc(p.mark || p.name.slice(0, 2)) + "</div>";
+      host.classList.add("p-hero__visual--medal");
+      return;
+    }
+    host.innerHTML = html;
+    host.classList.toggle("p-hero__visual--stack", !!(p.image && chat.length));
+    var ph = $(".phone", host);
+    if (ph) {
+      if (!reduce && "IntersectionObserver" in window) {
+        new IntersectionObserver(function (es, o) { es.forEach(function (e) { if (e.isIntersecting) { ph.classList.add("is-play"); o.disconnect(); } }); }, { threshold: .3 }).observe(ph);
+      } else ph.classList.add("is-play", "is-static");
+    }
+  }
+
+  function renderPlans(p) {
+    var plans = arr(p.plans).filter(function (x) { return x && x.name; });
+    var groups = arr(p.planGroups).filter(function (g) { return g && g.name; });
+    var names = groups.map(function (g) { return g.name; });
+    plans.forEach(function (pl) { if (pl.group && names.indexOf(pl.group) < 0) { names.push(pl.group); groups.push({ name: pl.group, text: "" }); } });
+    var hasPrice = plans.some(function (pl) { return pl.price && pl.price !== "สอบถามราคา"; });
+    if (!plans.length) { $("#plans").hidden = true; return; }
+    if (hasPrice) { show("#pSeePlans", true); } else { $("#pSeePlans2").hidden = true; txt("#pPlansText", "ราคาขึ้นกับขนาดธุรกิจและการปรับแต่ง ทักทาง LINE เพื่อรับใบเสนอราคา"); }
+
+    function planHtml(pl, i) {
+      var link = lineMsg("สนใจ " + p.name + " แพ็กเกจ " + pl.name + (pl.group ? " (" + pl.group + ")" : ""));
+      var isNum = /\d/.test(pl.price || "") && !/^ฟรี/.test(pl.price);
+      var feats = lines(pl.features);
+      return '<div class="plan' + (pl.badge ? " plan--hot" : "") + '" style="--i:' + i + '">' +
+        (pl.badge ? '<span class="plan__badge">' + esc(pl.badge) + "</span>" : "") +
+        '<h3 class="plan__name">' + esc(pl.name) + "</h3>" +
+        (pl.note ? '<p class="plan__note">' + esc(pl.note) + "</p>" : "") +
+        '<p class="plan__price"><b class="' + (isNum ? "num" : "word") + '">' + esc(pl.price || "สอบถามราคา") + "</b>" + (pl.period ? "<span>" + esc(pl.period) + "</span>" : "") + "</p>" +
+        (pl.alt ? '<p class="plan__alt">' + esc(pl.alt).replace(/\n/g, "<br>") + "</p>" : "") +
+        (feats.length ? '<ul class="plan__feats">' + feats.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" : '<div class="plan__space"></div>') +
+        (link ? '<a class="btn ' + (pl.badge ? "btn--gold" : "btn--ghost") + ' btn--sm plan__btn" href="' + link + '" target="_blank" rel="noopener">เลือกแพ็กเกจนี้</a>' : "") +
+        "</div>";
+    }
+    var box = $("#pPlans");
+    function draw(g) {
+      var list = groups.length ? plans.filter(function (pl) { return (pl.group || groups[0].name) === g; }) : plans;
+      box.className = "plans plans--" + (list.length > 4 ? 3 : list.length) + (list.some(function (pl) { return pl.badge; }) ? "" : " plans--plain");
+      box.innerHTML = list.map(planHtml).join("");
+      var gi = groups.filter(function (x) { return x.name === g; })[0];
+      if (gi && gi.text) { txt("#pGroupText", gi.text); show("#pGroupText", true); } else show("#pGroupText", false);
+    }
+    if (groups.length > 1) {
+      var gt = $("#pGroups");
+      gt.innerHTML = groups.map(function (g, i) { return '<button type="button" role="tab" aria-selected="' + (i === 0) + '" data-g="' + esc(g.name) + '">' + esc(g.name) + "</button>"; }).join("");
+      gt.hidden = false;
+      gt.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        $$("button", gt).forEach(function (x) { x.setAttribute("aria-selected", x === b); });
+        draw(b.getAttribute("data-g"));
+      });
+      draw(groups[0].name);
+    } else draw(groups.length ? groups[0].name : "");
+
+    var ad = arr(p.addons).filter(function (a) { return a && a.name; });
+    if (ad.length) { $("#pAddons").innerHTML = ad.map(function (a) { return "<li><span>" + esc(a.name) + "</span><b>" + esc(a.price) + "</b></li>"; }).join(""); show("#pAddonsBox", true); }
+    if (p.priceNote) { txt("#pPriceNote", p.priceNote); show("#pPriceNote", true); }
   }
 })();

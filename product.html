@@ -31,69 +31,141 @@
 </header>
 
 <main id="product">
+  <!-- 1) หัวหน้า -->
   <section class="p-hero">
-    <div class="wrap p-hero__in">
-      <a class="back" href="index.html#collection">กลับไปหน้าโปรแกรมทั้งหมด</a>
+    <div class="wrap">
+      <a class="back" href="index.html#collection">โปรแกรมทั้งหมด</a>
       <div class="p-hero__grid">
-        <div class="medal medal--xl" id="pMark" aria-hidden="true"></div>
-        <div>
-          <p class="p-hero__meta"><span class="chip" id="pStatus"></span><span class="ver" id="pVersion"></span><span class="muted" id="pCat"></span></p>
-          <h1 class="p-hero__title" id="pName"></h1>
-          <p class="p-hero__tag" id="pTag"></p>
+        <div class="p-hero__copy">
+          <p class="p-hero__meta"><span class="medal medal--sm" id="pMark" aria-hidden="true"></span><span class="p-hero__name" id="pName"></span><span class="chip" id="pStatus"></span></p>
+          <h1 class="p-hero__title" id="pHeadline"></h1>
+          <p class="p-hero__tag" id="pDesc"></p>
+          <div class="p-hero__badges" id="pBadges"></div>
           <div class="hero__cta">
-            <a class="btn btn--gold" id="pAsk" href="#">สอบถามโปรแกรมนี้ทาง LINE</a>
-            <a class="btn btn--ghost" id="pLink" href="#" target="_blank" rel="noopener" hidden>เปิดเว็บไซต์ของโปรแกรม</a>
+            <a class="btn btn--gold btn--lg" id="pAsk" href="#">สอบถามทาง LINE</a>
+            <a class="btn btn--ghost btn--lg" id="pSeePlans" href="#plans" hidden>ดูแพ็กเกจและราคา</a>
           </div>
+          <a class="p-hero__link" id="pLink" href="#" target="_blank" rel="noopener" hidden>เปิดเว็บไซต์ของโปรแกรม</a>
         </div>
+        <div class="p-hero__visual" id="pVisual"></div>
       </div>
     </div>
   </section>
 
+  <!-- 2) วิดีโอสาธิต -->
   <section class="p-videos" id="pVideos" hidden>
     <div class="wrap">
-      <h2 class="sec-title">วิดีโอสาธิต</h2>
+      <h2 class="sec-title">ดูการทำงานจริง</h2>
       <p class="sec-text">ชี้เมาส์หรือเลื่อนมาถึงวิดีโอเพื่อเล่น กดรูปลำโพงเพื่อเปิดเสียง</p>
       <div class="vgrid"></div>
     </div>
   </section>
 
-  <section class="p-body">
-    <div class="wrap p-body__grid">
-      <div class="p-main">
-        <figure class="shot" id="pShot" hidden><img id="pImg" alt=""></figure>
-        <h2 class="p-h">โปรแกรมนี้ทำอะไร</h2>
-        <p class="p-desc" id="pDesc"></p>
-        <h2 class="p-h">ความสามารถหลัก</h2>
-        <ul class="ticks" id="pFeatures"></ul>
+  <!-- 3) ปัญหา / เรื่องเล่า -->
+  <section class="p-pain" id="pPain" hidden>
+    <div class="wrap p-pain__in">
+      <div class="p-pain__list" id="pProblemsBox" hidden>
+        <h2 class="sec-title" id="pProblemsTitle"></h2>
+        <ul class="pains" id="pProblems"></ul>
+        <p class="p-pain__answer" id="pProblemsAnswer" hidden></p>
       </div>
-      <aside class="p-side">
-        <div class="side-card">
-          <h3>เหมาะกับ</h3>
-          <p id="pAudience"></p>
-        </div>
-        <div class="side-card">
-          <h3>ประวัติเวอร์ชัน</h3>
-          <ol class="log" id="pLog"></ol>
-        </div>
-      </aside>
+      <div class="p-story" id="pStoryBox" hidden>
+        <h2 class="p-story__title" id="pStoryTitle"></h2>
+        <div class="p-story__text" id="pStory"></div>
+      </div>
     </div>
   </section>
 
-  <section class="p-plans">
+  <!-- 4) จุดเด่น -->
+  <section class="p-feat" id="pFeat" hidden>
     <div class="wrap">
-      <h2 class="sec-title">แพ็กเกจและราคา</h2>
-      <p class="sec-text">ราคาขึ้นกับขนาดธุรกิจและการปรับแต่ง ทักทาง LINE เพื่อรับใบเสนอราคา</p>
-      <div class="plans" id="pPlans"></div>
+      <h2 class="sec-title">ทำไมต้อง <span id="pName2"></span></h2>
+      <div class="hl-grid" id="pHighlights"></div>
+      <figure class="shot" id="pShot" hidden><img id="pImg" alt="" loading="lazy"></figure>
+      <aside class="callout" id="pCallout" hidden><h3 id="pCalloutTitle"></h3><p id="pCalloutText"></p></aside>
     </div>
   </section>
 
+  <!-- 5) ขั้นตอน / เหมาะกับใคร / ตัวอย่าง -->
+  <section class="p-fit" id="pFit" hidden>
+    <div class="wrap p-fit__grid">
+      <div class="fit-card" id="pStepsBox" hidden>
+        <h2 class="fit-card__title" id="pStepsTitle"></h2>
+        <ol class="steps" id="pSteps"></ol>
+      </div>
+      <div class="fit-card" id="pAudienceBox" hidden>
+        <h2 class="fit-card__title">เหมาะกับใคร</h2>
+        <ul class="checks" id="pAudience"></ul>
+      </div>
+      <div class="fit-card" id="pExamplesBox" hidden>
+        <h2 class="fit-card__title" id="pExamplesTitle"></h2>
+        <div class="chips" id="pExamples"></div>
+      </div>
+      <div class="fit-card fit-card--req" id="pReqBox" hidden>
+        <h2 class="fit-card__title">สิ่งที่ต้องมี</h2>
+        <p id="pReq"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6) ราคา -->
+  <section class="p-plans" id="plans">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title">แพ็กเกจและราคา</h2>
+        <p class="sec-text" id="pPlansText">เลือกแพ็กเกจที่เหมาะกับคุณ แล้วกดปุ่มเพื่อคุยกับเราทาง LINE</p>
+      </div>
+      <div class="pgroups" id="pGroups" role="tablist" aria-label="กลุ่มแพ็กเกจ" hidden></div>
+      <p class="pgroup-text" id="pGroupText" hidden></p>
+      <div class="plans" id="pPlans"></div>
+      <div class="addons" id="pAddonsBox" hidden>
+        <h3>บริการเสริม</h3>
+        <ul id="pAddons"></ul>
+      </div>
+      <p class="price-note" id="pPriceNote" hidden></p>
+    </div>
+  </section>
+
+  <!-- 7) คำถามที่พบบ่อย -->
+  <section class="p-faq" id="pFaqBox" hidden>
+    <div class="wrap faq__in">
+      <h2 class="sec-title">คำถามที่พบบ่อย</h2>
+      <div class="faq__list" id="pFaq"></div>
+    </div>
+  </section>
+
+  <!-- 8) ปิดการขาย -->
+  <section class="p-cta">
+    <div class="wrap p-cta__in">
+      <h2 class="p-cta__title" id="pCtaTitle"></h2>
+      <p class="p-cta__text" id="pCtaText"></p>
+      <div class="hero__cta">
+        <a class="btn btn--gold btn--lg" id="pAsk2" href="#">สอบถามทาง LINE</a>
+        <a class="btn btn--light btn--lg" href="#plans" id="pSeePlans2">ดูแพ็กเกจและราคา</a>
+      </div>
+      <p class="p-fine" id="pFine" hidden></p>
+    </div>
+  </section>
+
+  <!-- 9) ประวัติเวอร์ชัน + โปรแกรมอื่น -->
   <section class="p-more">
     <div class="wrap">
-      <h2 class="sec-title">โปรแกรมอื่นในหมวดเดียวกัน</h2>
-      <div class="grid" id="pMore"></div>
+      <details class="vlog" id="pLogBox" hidden>
+        <summary>ประวัติเวอร์ชัน <span class="ver" id="pVersion"></span></summary>
+        <ol class="log" id="pLog"></ol>
+      </details>
+      <div id="pMoreBox">
+        <h2 class="sec-title">โปรแกรมอื่นในหมวด <span id="pCat"></span></h2>
+        <div class="grid" id="pMore"></div>
+      </div>
     </div>
   </section>
 </main>
+
+<div class="sticky-cta" id="stickyCta" hidden>
+  <div class="sticky-cta__price"><small id="scLabel"></small><b id="scPrice"></b></div>
+  <a class="btn btn--gold" id="scAsk" href="#">สอบถามทาง LINE</a>
+</div>
 
 <section class="notfound wrap" id="notFound" hidden>
   <h1 class="sec-title">ไม่พบโปรแกรมนี้</h1>
@@ -109,6 +181,7 @@
       <a href="terms.html">เงื่อนไขการใช้บริการ</a>
       <a href="privacy.html">นโยบายความเป็นส่วนตัว</a>
     </nav>
+    <p class="foot__note" data-bind="footerNote"></p>
     <div class="foot__in">
     <span>© <span id="year"></span> <span data-bind="brand"></span></span>
     <span class="muted">พัฒนาโดย <span data-bind="owner"></span></span>
@@ -121,6 +194,7 @@
 </a>
 
 <script src="content.js"></script>
+<script src="assets/js/qrcode.js"></script>
 <script src="script.js"></script>
 <script src="pulse.js"></script>
 </body>

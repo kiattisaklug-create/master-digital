@@ -26,6 +26,9 @@
     a.target = "_blank"; a.rel = "noopener";
   });
 
+  // QR ของหน้าติดต่อ: สร้างจาก LINE ID ใน business.js
+  if (id && window.MD_QR) { var qs = window.MD_QR(id); if (qs) $$(".js-qr").forEach(function (im) { im.src = qs; }); }
+
   // 4) สารบัญอัตโนมัติจากหัวข้อ
   var toc = document.getElementById("toc"), art = document.querySelector(".legal__doc");
   if (toc && art) {
