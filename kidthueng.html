@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ระบบคิดถึง — MASTER DIGITAL</title>
+<meta name="description" content="ฝากข้อความ ฝากรูปภาพ ไว้วันนี้ ระบบคิดถึงจะทยอยส่งถึงลูกหลานทาง LINE ทุกวัน">
+<meta property="og:title" content="ระบบคิดถึง — ให้ความรักของคุณ ไปถึงลูกหลานทุกวัน">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Trirong:wght@500;600&family=Charm:wght@400;700&family=Prompt:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="legal.css">
+<link rel="stylesheet" href="kidthueng.css">
+</head>
+<body data-page="kidthueng" data-product="kidthueng" class="kt">
+
+<header class="top is-solid" id="top">
+  <div class="top__in">
+    <a class="brand" href="index.html" aria-label="หน้าแรก">
+      <span class="brand__mark" data-bind="brandShort">MD</span>
+      <span class="brand__name" data-bind="brand">MASTER DIGITAL</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="เมนูหลัก">
+      <a href="index.html#collection">โปรแกรมทั้งหมด</a>
+      <a href="index.html#versions">เวอร์ชันล่าสุด</a>
+      <a href="index.html#faq">คำถาม</a>
+      <a href="index.html#contact">ติดต่อ</a>
+    </nav>
+    <a class="btn btn--gold btn--sm js-line" href="#">คุยทาง LINE</a>
+    <button class="menu" id="menuBtn" aria-label="เปิดเมนู" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="kt">
+  <!-- หัวหน้า -->
+  <section class="kt-hero">
+    <div class="wrap kt-hero__grid">
+      <div class="kt-hero__copy">
+        <a class="back" href="index.html#collection">โปรแกรมทั้งหมด</a>
+        <p class="kt-brand"><span class="kt-brand__mark" id="ktMark">💌</span><span id="ktName">ระบบคิดถึง</span></p>
+        <h1 class="kt-hero__title" id="ktHeadline"></h1>
+        <p class="kt-hero__text" id="ktDesc"></p>
+        <div class="kt-hero__badges" id="ktBadges"></div>
+        <div class="kt-cta">
+          <a class="btn btn--gold btn--lg js-kt-start" href="#">เริ่มฝากความคิดถึง ทดลองฟรี</a>
+          <a class="btn btn--ghost btn--lg" href="#plans">ดูแพ็กเกจ</a>
+        </div>
+      </div>
+      <div class="kt-phone-wrap">
+        <div class="kt-phone" id="ktPhone" aria-label="ตัวอย่างข้อความที่ลูกหลานได้รับ">
+          <div class="kt-phone__bar"><span class="kt-phone__av" id="ktSenderAv">พ่อ</span><b id="ktSender">พ่อ</b></div>
+          <div class="kt-phone__body" id="ktBubbles"></div>
+        </div>
+        <p class="kt-phone__cap">ลูกหลานจะเห็นชื่อและรูปของคุณ พร้อมคำพูดใหม่ทุกวัน</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- คำพูดที่ฝากไว้ -->
+  <section class="kt-words" id="ktWords" hidden>
+    <div class="wrap">
+      <h2 class="kt-h2" id="ktStoryTitle"></h2>
+      <p class="kt-lead" id="ktStoryLead"></p>
+      <div class="kt-notes" id="ktNotes"></div>
+      <div class="kt-story" id="ktStory"></div>
+    </div>
+  </section>
+
+  <!-- จุดเด่น -->
+  <section class="kt-feat" id="ktFeat" hidden>
+    <div class="wrap">
+      <h2 class="kt-h2">ทำไมต้องระบบคิดถึง</h2>
+      <div class="kt-feat__grid" id="ktHighlights"></div>
+    </div>
+  </section>
+
+  <!-- ขั้นตอน -->
+  <section class="kt-steps" id="ktStepsBox" hidden>
+    <div class="wrap">
+      <h2 class="kt-h2" id="ktStepsTitle"></h2>
+      <ol class="kt-steps__list" id="ktSteps"></ol>
+    </div>
+  </section>
+
+  <!-- ของขวัญ -->
+  <section class="kt-gift" id="ktGift" hidden>
+    <div class="wrap kt-gift__in">
+      <div class="kt-gift__icon" aria-hidden="true">🎁</div>
+      <div>
+        <h2 class="kt-gift__title" id="ktGiftTitle"></h2>
+        <p class="kt-gift__text" id="ktGiftText"></p>
+        <ul class="kt-gift__who" id="ktAudience"></ul>
+      </div>
+      <a class="btn btn--gold btn--lg js-kt-start" href="#">ฝากคำพูดแรกให้ลูกหลาน</a>
+    </div>
+  </section>
+
+  <!-- ราคา -->
+  <section class="kt-plans" id="plans">
+    <div class="wrap">
+      <h2 class="kt-h2">แพ็กเกจ</h2>
+      <p class="kt-sub">ทุกแพ็กเกจทดลองใช้ฟรีก่อนได้ เลือกกลุ่มที่เหมาะกับคุณ</p>
+      <div class="kt-groups" id="ktGroups" role="tablist" aria-label="กลุ่มแพ็กเกจ"></div>
+      <p class="kt-group-text" id="ktGroupText"></p>
+      <div class="kt-plan-grid" id="ktPlans"></div>
+      <p class="kt-note" id="ktPriceNote" hidden></p>
+    </div>
+  </section>
+
+  <!-- คำถาม -->
+  <section class="kt-faq" id="ktFaqBox" hidden>
+    <div class="wrap kt-faq__in">
+      <h2 class="kt-h2">คำถามที่พบบ่อย</h2>
+      <div id="ktFaq"></div>
+    </div>
+  </section>
+
+  <!-- ปิดท้าย -->
+  <section class="kt-end">
+    <div class="wrap kt-end__in">
+      <p class="kt-end__mark" aria-hidden="true">💌</p>
+      <h2 class="kt-end__title" id="ktCtaTitle"></h2>
+      <p class="kt-end__text" id="ktCtaText"></p>
+      <div class="kt-cta kt-cta--center">
+        <a class="btn btn--gold btn--lg js-kt-start" href="#">เริ่มฝากความคิดถึง ทดลองฟรี</a>
+        <a class="btn btn--ghost btn--lg js-kt-ask" href="#">สอบถามทาง LINE</a>
+      </div>
+      <p class="kt-fine" id="ktFine" hidden></p>
+    </div>
+  </section>
+</main>
+
+<div class="sticky-cta" id="stickyCta" hidden>
+  <div class="sticky-cta__price"><small>เริ่มต้น</small><b id="scPrice"></b></div>
+  <a class="btn btn--gold js-kt-start" href="#">ทดลองฟรี</a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav class="foot__links" aria-label="ข้อมูลและนโยบาย">
+      <a href="contact.html">ติดต่อเรา</a>
+      <a href="refund.html">นโยบายคืนเงิน</a>
+      <a href="terms.html">เงื่อนไขการใช้บริการ</a>
+      <a href="privacy.html">นโยบายความเป็นส่วนตัว</a>
+    </nav>
+    <p class="foot__note" data-bind="footerNote"></p>
+    <div class="foot__in">
+    <span>© <span id="year"></span> <span data-bind="brand"></span></span>
+    <span class="muted">พัฒนาโดย <span data-bind="owner"></span></span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-line js-line" href="#" aria-label="คุยทาง LINE">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5 1.1-.5 6-3.5 8.2-6C21.6 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z" fill="currentColor"/></svg>
+</a>
+
+<script src="content.js"></script>
+<script src="assets/js/qrcode.js"></script>
+<script src="script.js"></script>
+<script src="kidthueng.js"></script>
+<script src="pulse.js"></script>
+</body>
+</html>

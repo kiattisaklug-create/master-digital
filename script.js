@@ -31,7 +31,10 @@
   var lineMsg = function (text) {
     return lineId ? "https://line.me/R/oaMessage/" + encodeURIComponent(lineId) + "/?" + encodeURIComponent(text) : "";
   };
-  var productUrl = function (p) { return "product.html?id=" + encodeURIComponent(p.id); };
+  // โปรแกรมที่มีหน้าเว็บออกแบบพิเศษ
+  var SPECIAL = { kidthueng: "kidthueng.html" };
+  var pageOf = function (p) { return p.page || SPECIAL[p.id] || ""; };
+  var productUrl = function (p) { return pageOf(p) || "product.html?id=" + encodeURIComponent(p.id); };
 
   /* ---------- ข้อความทั่วไป ---------- */
   $$("[data-bind]").forEach(function (el) {
@@ -357,6 +360,7 @@
   if (document.body.getAttribute("data-page") === "product") {
     var id = new URLSearchParams(location.search).get("id");
     var p = products.filter(function (x) { return x.id === id; })[0];
+    if (p && pageOf(p)) { location.replace(pageOf(p)); return; }
     if (!p) {
       $("#product").hidden = true; $("#notFound").hidden = false;
     } else renderProduct(p);

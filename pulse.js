@@ -10,10 +10,12 @@
   } catch (e) {}
   if (location.protocol === "file:") return;   // เปิดไฟล์บนคอมเฉยๆ ไม่นับ
   var pageKey = document.body.getAttribute("data-page") || "home";
+  var fixedId = document.body.getAttribute("data-product");
+  if (fixedId) pageKey = "product";
   var isProduct = pageKey === "product";
   var data = JSON.stringify({
     page: pageKey,
-    id: isProduct ? new URLSearchParams(location.search).get("id") : "",
+    id: isProduct ? (fixedId || new URLSearchParams(location.search).get("id")) : "",
     ref: document.referrer && document.referrer.indexOf(location.host) === -1 ? document.referrer : ""
   });
   try {
