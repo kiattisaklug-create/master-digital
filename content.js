@@ -138,7 +138,7 @@ window.SITE = {
         }
       ],
       "id": "aestiva",
-      "image": "",
+      "image": "assets/products/aestiva-img-261013200000.webp",
       "link": "https://aestiva-website-production.up.railway.app/",
       "mark": "A",
       "name": "AESTIVA",
@@ -310,7 +310,7 @@ window.SITE = {
         }
       ],
       "id": "opd-photo",
-      "image": "",
+      "image": "assets/products/opd-photo-img-261013200000.webp",
       "link": "",
       "mark": "OP",
       "name": "MASTER OPD",
@@ -798,7 +798,7 @@ window.SITE = {
         }
       ],
       "id": "procurement",
-      "image": "",
+      "image": "assets/products/procurement-img-261013200000.webp",
       "link": "",
       "mark": "PO",
       "name": "AESTIVA Procurement",
@@ -938,7 +938,7 @@ window.SITE = {
         }
       ],
       "id": "master-inbox",
-      "image": "",
+      "image": "assets/products/master-inbox-img-261013200000.webp",
       "link": "",
       "mark": "IB",
       "name": "MASTER INBOX",
@@ -1126,7 +1126,7 @@ window.SITE = {
         }
       ],
       "id": "carousel-atelier",
-      "image": "",
+      "image": "assets/products/carousel-atelier-img-261013200000.webp",
       "link": "",
       "mark": "CA",
       "name": "CAROUSEL ATELIER",
@@ -1340,7 +1340,7 @@ window.SITE = {
         }
       ],
       "id": "multi-uploader",
-      "image": "",
+      "image": "assets/products/multi-uploader-img-261013200000.webp",
       "link": "",
       "mark": "MU",
       "name": "MULTI UPLOADER",
@@ -1525,7 +1525,7 @@ window.SITE = {
         }
       ],
       "id": "fb-reels",
-      "image": "",
+      "image": "assets/products/fb-reels-img-261013200000.webp",
       "link": "",
       "mark": "FR",
       "name": "FB Reels Uploader",
@@ -1802,7 +1802,7 @@ window.SITE = {
         }
       ],
       "id": "sticker-studio",
-      "image": "",
+      "image": "assets/products/sticker-studio-img-261013200000.webp",
       "link": "",
       "mark": "ST",
       "name": "STICKER STUDIO",
@@ -1971,7 +1971,7 @@ window.SITE = {
       "headline": "",
       "highlights": [],
       "id": "new-muxosw1g",
-      "image": "assets/products/new-muxosw1g-img-261007125738.webp",
+      "image": "assets/products/new-muxosw1g-img-261013200000.webp",
       "link": "",
       "mark": "MV",
       "name": "Master Video Studio",
@@ -2102,7 +2102,7 @@ window.SITE = {
         }
       ],
       "id": "fb-follow",
-      "image": "",
+      "image": "assets/products/fb-follow-img-261013200000.webp",
       "link": "",
       "mark": "FF",
       "name": "FB Follow Assistant",
@@ -2498,7 +2498,7 @@ window.SITE = {
         }
       ],
       "id": "schedule",
-      "image": "assets/products/schedule-img-261007205707.webp",
+      "image": "assets/products/schedule-img-261013200000.webp",
       "link": "",
       "mark": "MP",
       "name": "Master Planner",
@@ -2690,7 +2690,7 @@ window.SITE = {
         }
       ],
       "id": "accounting",
-      "image": "",
+      "image": "assets/products/accounting-img-261013200000.webp",
       "link": "",
       "mark": "AC",
       "name": "LINE OA Accounting",
@@ -2972,7 +2972,7 @@ window.SITE = {
         }
       ],
       "id": "kidthueng",
-      "image": "",
+      "image": "assets/products/kidthueng-img-261013200000.webp",
       "link": "",
       "mark": "💌",
       "name": "ระบบคิดถึง",
@@ -3275,7 +3275,7 @@ window.SITE = {
         }
       ],
       "id": "master-credit",
-      "image": "",
+      "image": "assets/products/master-credit-img-261013200000.webp",
       "link": "",
       "mark": "MC",
       "name": "Master Credit",
@@ -3472,7 +3472,7 @@ window.SITE = {
         }
       ],
       "id": "master-ask",
-      "image": "",
+      "image": "assets/products/master-ask-img-261013200000.webp",
       "link": "",
       "mark": "AS",
       "name": "MASTER ASK",

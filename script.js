@@ -31,6 +31,9 @@
   var lineMsg = function (text) {
     return lineId ? "https://line.me/R/oaMessage/" + encodeURIComponent(lineId) + "/?" + encodeURIComponent(text) : "";
   };
+  // โลโก้ MASTER CLINIC (ส่วนผู้พัฒนา) — เปลี่ยนได้ที่ brandLogo ใน content.js
+  var BRAND_LOGO = S.brandLogo || "assets/brand/master-clinic.webp";
+  var logos = function () { return products.filter(function (p) { return p.image; }); };
   // โปรแกรมที่มีหน้าเว็บออกแบบพิเศษ
   var SPECIAL = { kidthueng: "kidthueng.html" };
   var pageOf = function (p) { return p.page || SPECIAL[p.id] || ""; };
@@ -91,7 +94,7 @@
   var ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
   function chip(s) { return statusName(s) ? '<span class="chip chip--' + esc(s) + '">' + esc(statusName(s)) + "</span>" : ""; }
   function medal(p, cls) {
-    if (p.image) return '<span class="medal medal--img' + (cls ? " " + cls : "") + '"><img src="' + esc(p.image) + '" alt="" loading="lazy"></span>';
+    if (p.image) return '<span class="medal medal--img' + (cls ? " " + cls : "") + '"><img src="' + esc(p.image) + '" alt="" loading="lazy" decoding="async"></span>';
     return '<span class="medal' + (cls ? " " + cls : "") + '">' + esc(p.mark || (p.name || "?").slice(0, 2)) + "</span>";
   }
   function priceLine(p) {
@@ -155,7 +158,7 @@
       vt.innerHTML = '<div class="vrow vrow--head" role="row"><span>โปรแกรม</span><span>เวอร์ชัน</span><span>เปลี่ยนแปลงล่าสุด</span><span style="text-align:right">วันที่</span></div>' +
         rows.map(function (p) {
           var last = arr(p.changelog)[0] || {};
-          return '<a class="vrow" role="row" style="--c:' + catColor(p.category) + '" href="' + productUrl(p) + '"><span class="vrow__name">' + esc(p.name) + '</span><span class="ver">' + esc(p.version) +
+          return '<a class="vrow" role="row" style="--c:' + catColor(p.category) + '" href="' + productUrl(p) + '"><span class="vrow__name' + (p.image ? " has-logo" : "") + '">' + (p.image ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" decoding="async">' : "") + esc(p.name) + '</span><span class="ver">' + esc(p.version) +
             '</span><span class="vrow__note">' + esc(last.text || "") + '</span><span class="vrow__date">' + esc(last.date || "") + "</span></a>";
         }).join("");
     }
@@ -187,6 +190,7 @@
 
     buildDial();
     buildSeal();
+    buildStrip();
     requestAnimationFrame(function () { setTimeout(function () { document.body.classList.add("is-ready"); }, 60); });
   }
 
@@ -228,13 +232,21 @@
     products.forEach(function (p, i) {
       var ang = i * 360 / n, a = ang * Math.PI / 180;
       var m = el("a", { href: productUrl(p), "class": "marker", tabindex: "0", "aria-label": p.name, style: "--c:" + catColor(p.category) + ";transition-delay:" + (1.2 + i * .06) + "s" }, svg);
-      el("circle", { cx: Math.sin(a) * R, cy: -Math.cos(a) * R, r: 22 }, m);
-      var tx = el("text", { x: Math.sin(a) * R, y: -Math.cos(a) * R }, m);
-      tx.textContent = p.mark || p.name.slice(0, 2);
+      var mx = Math.sin(a) * R, my = -Math.cos(a) * R;
+      if (p.image) {
+        m.setAttribute("class", "marker marker--img");
+        el("circle", { cx: mx, cy: my, r: 28 }, m);
+        var im = el("image", { x: mx - 25, y: my - 25, width: 50, height: 50, preserveAspectRatio: "xMidYMid meet" }, m);
+        im.setAttributeNS("http://www.w3.org/1999/xlink", "href", p.image); im.setAttribute("href", p.image);
+      } else {
+        el("circle", { cx: mx, cy: my, r: 22 }, m);
+        var tx = el("text", { x: mx, y: my }, m);
+        tx.textContent = p.mark || p.name.slice(0, 2);
+      }
       markers.push({ node: m, p: p, ang: ang });
     });
 
-    var face = $("#dialFace"), fc = $("#dialCat"), fn = $("#dialName"), ft = $("#dialTag");
+    var face = $("#dialFace"), fc = $("#dialCat"), fn = $("#dialName"), ft = $("#dialTag"), fl = $("#dialLogo");
     var active = -1, turned = 0, paused = false;
     function show(i) {
       if (i === active) return;
@@ -247,6 +259,7 @@
       setTimeout(function () {
         face.style.setProperty("--c", catColor(m.p.category));
         fc.textContent = catName(m.p.category); fn.textContent = m.p.name; ft.textContent = m.p.tagline;
+        if (fl) { if (m.p.image) { fl.src = m.p.image; fl.hidden = false; } else { fl.hidden = true; fl.removeAttribute("src"); } face.classList.toggle("has-logo", !!m.p.image); }
         face.href = productUrl(m.p); face.setAttribute("aria-label", "ดูรายละเอียด " + m.p.name);
         face.classList.remove("is-swap");
       }, first ? 0 : 280);
@@ -272,9 +285,34 @@
     el("circle", { r: 98, fill: "none", stroke: "#E8A920", "stroke-width": .6, opacity: .6 }, svg);
     var dg = el("linearGradient", { id: "sealG", x1: "0", y1: "0", x2: "1", y2: "1" }, el("defs", {}, svg));
     el("stop", { offset: "0", "stop-color": "#F7D57A" }, dg); el("stop", { offset: "1", "stop-color": "#E8A920" }, dg);
+    if (BRAND_LOGO) {
+      el("circle", { r: 80, fill: "#fff", stroke: "#E8A920", "stroke-width": 1.2 }, svg);
+      var bi = el("image", { x: -74, y: -74, width: 148, height: 148, "class": "seal__logo" }, svg);
+      bi.setAttributeNS("http://www.w3.org/1999/xlink", "href", BRAND_LOGO); bi.setAttribute("href", BRAND_LOGO);
+      bi.addEventListener("error", function () { bi.remove(); sealText(); });
+      return;
+    }
+    sealText();
+    function sealText() {
     el("circle", { r: 54, fill: "url(#sealG)" }, svg);
     var t = el("text", { x: 0, y: 2, "text-anchor": "middle", "dominant-baseline": "central", fill: "#2A1D00", style: "font:600 30px 'Playfair Display',Georgia,serif;letter-spacing:.03em" }, svg);
     t.textContent = S.brandShort || "MD";
+    }
+  }
+
+  /* ---------- แถบโลโก้โปรแกรม (เลื่อนช้า ๆ) ---------- */
+  function buildStrip() {
+    var host = $("#logoStrip"), list = logos();
+    if (!host) return;
+    if (list.length < 4) { host.hidden = true; return; }
+    var item = function (p, dup) {
+      return '<a class="lstrip__item" href="' + productUrl(p) + '"' + (dup ? ' tabindex="-1" aria-hidden="true"' : "") + ' style="--c:' + catColor(p.category) + '">' +
+        '<img src="' + esc(p.image) + '" alt="' + (dup ? "" : esc(p.name)) + '" loading="lazy" decoding="async"><span>' + esc(p.name) + "</span></a>";
+    };
+    var row = list.map(function (p) { return item(p); }).join("") + list.map(function (p) { return item(p, true); }).join("");
+    $(".lstrip__track", host).innerHTML = row;
+    host.style.setProperty("--n", list.length);
+    host.hidden = false;
   }
 
   /* ===================== วิดีโอสาธิต ===================== */
@@ -378,6 +416,11 @@
     if (!md) { md = document.createElement("meta"); md.name = "description"; document.head.appendChild(md); }
     md.content = p.tagline || p.description || "";
     document.body.style.setProperty("--c", color);
+    if (p.image) {
+      var fav = document.querySelector('link[rel="icon"]');
+      if (!fav) { fav = document.createElement("link"); fav.rel = "icon"; document.head.appendChild(fav); }
+      fav.type = "image/webp"; fav.href = p.image;
+    }
 
     // หัวหน้า
     $("#pMark").outerHTML = medal(p, "medal--sm");
@@ -483,10 +526,10 @@
     var host = $("#pVisual"), chat = arr(p.chat).filter(function (c) { return c && (c.q || c.a); });
     var shot = $("#pShot"); if (shot) shot.remove();
     var html = "";
-    if (p.image) html += '<figure class="hero-art"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '"></figure>';
+    if (p.image) html += '<figure class="hero-art"><span class="hero-art__halo" aria-hidden="true"></span><span class="hero-art__ring" aria-hidden="true"></span><img src="' + esc(p.image) + '" alt="โลโก้ ' + esc(p.name) + '"></figure>';
     if (chat.length) {
       html += '<div class="phone" aria-label="ตัวอย่างการใช้งานในแชท">' +
-        '<div class="phone__bar"><span class="phone__av">' + esc(p.mark || "") + "</span><b>" + esc(p.name) + "</b></div>" +
+        '<div class="phone__bar"><span class="phone__av' + (p.image ? " has-logo" : "") + '">' + (p.image ? '<img src="' + esc(p.image) + '" alt="">' : esc(p.mark || "")) + "</span><b>" + esc(p.name) + "</b></div>" +
         '<div class="phone__body">' + chat.map(function (c, i) {
           return (c.q ? '<div class="bub bub--me" style="--d:' + (i * 2) + '">' + esc(c.q) + "</div>" : "") +
                  (c.a ? '<div class="bub bub--bot" style="--d:' + (i * 2 + 1) + '">' + esc(c.a) + "</div>" : "");

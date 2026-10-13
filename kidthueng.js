@@ -26,7 +26,13 @@
   $$(".js-kt-ask").forEach(function (a) { if (ask) { a.href = ask; a.target = "_blank"; a.rel = "noopener"; } });
 
   // หัวหน้า
-  txt("#ktMark", p.mark || "💌");
+  var mk = $("#ktMark");
+  if (p.image && mk) {
+    mk.innerHTML = '<img src="' + esc(p.image) + '" alt="">'; mk.classList.add("has-logo");
+    var fav = document.querySelector('link[rel="icon"]'); if (fav) { fav.type = "image/webp"; fav.href = p.image; }
+    var pw = $("#ktPhone");
+    if (pw) { var sl = document.createElement("img"); sl.className = "kt-seal"; sl.src = p.image; sl.alt = "โลโก้ " + (p.name || ""); pw.appendChild(sl); }
+  } else txt("#ktMark", p.mark || "💌");
   txt("#ktName", p.name);
   // ตัดบรรทัดภาษาไทยเฉพาะตรงช่องว่าง ไม่ให้วลีขาดกลางคำ
   var phrases = function (sel, v) { var e = $(sel); if (!e) return; e.innerHTML = String(v || "").split(/\s+/).filter(Boolean).map(function (w) { return '<span class="kt-ph">' + esc(w) + "</span>"; }).join(" "); };
