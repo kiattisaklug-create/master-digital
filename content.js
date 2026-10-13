@@ -68,7 +68,7 @@ window.SITE = {
   "heroText": "ซอฟต์แวร์ที่แพทย์เจ้าของคลินิกสร้างขึ้นใช้งานจริงทุกวัน  สร้างจากสิ่งที่เราอยากใช้ และออกแบบมาเพื่อให้คุณได้ใช้",
   "heroTitle": "Built for ourselves. Designed for you.",
   "owner": "นพ. เกียรติศักดิ์ ลักษณะงาม",
-  "ownerRole": "CEO of MASTER CLINIC ",
+  "ownerRole": "Founder of MASTER DIGITAL",
   "products": [
     {
       "addons": [],
