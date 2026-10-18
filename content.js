@@ -673,10 +673,10 @@ window.SITE = {
         }
       ],
       "id": "sales-agent",
-      "image": "",
+      "image": "assets/products/sales-agent-img-261018220000.webp",
       "link": "",
       "mark": "SA",
-      "name": "Sales Agent System",
+      "name": "Master Sales Agent System",
       "planGroups": [],
       "plans": [
         {
@@ -801,7 +801,7 @@ window.SITE = {
       "image": "assets/products/procurement-img-261013200000.webp",
       "link": "",
       "mark": "PO",
-      "name": "AESTIVA Procurement",
+      "name": "Master Procurement",
       "planGroups": [],
       "plans": [
         {
@@ -1339,7 +1339,7 @@ window.SITE = {
       "image": "assets/products/carousel-atelier-img-261013200000.webp",
       "link": "",
       "mark": "CA",
-      "name": "CAROUSEL ATELIER",
+      "name": "Master Carousel",
       "planGroups": [],
       "plans": [
         {
@@ -1424,7 +1424,7 @@ window.SITE = {
       "status": "ready",
       "steps": [],
       "stepsTitle": "",
-      "story": "อยากโพสต์ความรู้ดี ๆ ให้ลูกค้า แต่ต้องนั่งคิดข้อความ จัดหน้า เลือกฟอนต์ ใส่โลโก้ ทีละภาพ จนหมดไปครึ่งวัน\nCAROUSEL ATELIER เปลี่ยนเรื่องนั้นให้เหลือแค่ พิมพ์หัวข้อ แล้วกดตามขั้นตอน",
+      "story": "อยากโพสต์ความรู้ดี ๆ ให้ลูกค้า แต่ต้องนั่งคิดข้อความ จัดหน้า เลือกฟอนต์ ใส่โลโก้ ทีละภาพ จนหมดไปครึ่งวัน\nMaster Carousel เปลี่ยนเรื่องนั้นให้เหลือแค่ พิมพ์หัวข้อ แล้วกดตามขั้นตอน",
       "storyTitle": "เคยไหม?",
       "tagline": "พิมพ์แค่หัวข้อ ได้ Carousel สวยพร้อมโพสต์ทั้งชุด ไม่ต้องจ้างกราฟิก",
       "trial": "ทดลองใช้ฟรี 7 วัน",
@@ -1474,7 +1474,7 @@ window.SITE = {
         "ครีเอเตอร์ที่ลงคลิปหลายแพลตฟอร์มทุกวัน"
       ],
       "callout": {
-        "text": "ลงวันละ 20 คลิป × 3 แพลตฟอร์ม × ประมาณ 3 นาทีต่อครั้ง = เสียเวลาราว 3 ชั่วโมงทุกวัน MULTI UPLOADER เปลี่ยนงานนี้ให้เหลือแค่กดปุ่มเดียว",
+        "text": "ลงวันละ 20 คลิป × 3 แพลตฟอร์ม × ประมาณ 3 นาทีต่อครั้ง = เสียเวลาราว 3 ชั่วโมงทุกวัน Master Multi Uploader เปลี่ยนงานนี้ให้เหลือแค่กดปุ่มเดียว",
         "title": "ตัวอย่างการคำนวณ"
       },
       "category": "content",
@@ -1550,10 +1550,10 @@ window.SITE = {
         }
       ],
       "id": "multi-uploader",
-      "image": "assets/products/multi-uploader-img-261013200000.webp",
+      "image": "assets/products/multi-uploader-img-261018220000.webp",
       "link": "",
       "mark": "MU",
-      "name": "MULTI UPLOADER",
+      "name": "Master Multi Uploader",
       "planGroups": [],
       "plans": [
         {
@@ -1613,7 +1613,7 @@ window.SITE = {
       "status": "ready",
       "steps": [],
       "stepsTitle": "",
-      "story": "MULTI UPLOADER ช่วยคนขายของออนไลน์ให้ลงคลิปได้ครั้งละมาก ๆ ไปยัง TikTok, Facebook Reels และ Shopee พร้อมกันทั้ง 3 ช่องทาง จากโปรแกรมเดียว เอาเวลาไปทำคอนเทนต์ที่ขายได้จริง",
+      "story": "Master Multi Uploader ช่วยคนขายของออนไลน์ให้ลงคลิปได้ครั้งละมาก ๆ ไปยัง TikTok, Facebook Reels และ Shopee พร้อมกันทั้ง 3 ช่องทาง จากโปรแกรมเดียว เอาเวลาไปทำคอนเทนต์ที่ขายได้จริง",
       "storyTitle": "ยังเสียเวลาวันละหลายชั่วโมง ลงคลิปเดิมซ้ำ 3 แอปอยู่หรือเปล่า?",
       "tagline": "คลิปเดียว ลง TikTok, Facebook Reels และ Shopee Video พร้อมกัน",
       "trial": "ขอทดลองใช้ฟรี",
@@ -1671,7 +1671,7 @@ window.SITE = {
         "เพจรีวิวสินค้าที่ลงคลิปทุกวัน"
       ],
       "callout": {
-        "text": "ลงคลิปเอง 1 คลิปใช้เวลาประมาณ 3–5 นาที วันละ 8 คลิป = 30–40 นาทีต่อวัน หรือประมาณ 15–20 ชั่วโมงต่อเดือน FB Reels Uploader คืนเวลานี้ให้คุณ",
+        "text": "ลงคลิปเอง 1 คลิปใช้เวลาประมาณ 3–5 นาที วันละ 8 คลิป = 30–40 นาทีต่อวัน หรือประมาณ 15–20 ชั่วโมงต่อเดือน Master REEL Uploader คืนเวลานี้ให้คุณ",
         "title": "คำนวณความคุ้ม"
       },
       "category": "content",
@@ -1685,7 +1685,7 @@ window.SITE = {
       "chat": [],
       "ctaText": "ทักไลน์สอบถามหรือขอดูการทำงานจริง",
       "ctaTitle": "ตั้งครั้งเดียว ลงให้ทุกวัน",
-      "description": "หยุดเสียเวลานั่งลงคลิป Reels ทีละตัว FB Reels Uploader ลงให้ ขณะที่คุณไปทำงานที่สำคัญกว่า ตั้งค่าครั้งเดียว กดปุ่มเดียว แล้วปล่อยให้ระบบทำงาน",
+      "description": "หยุดเสียเวลานั่งลงคลิป Reels ทีละตัว Master REEL Uploader ลงให้ ขณะที่คุณไปทำงานที่สำคัญกว่า ตั้งค่าครั้งเดียว กดปุ่มเดียว แล้วปล่อยให้ระบบทำงาน",
       "examples": [],
       "examplesTitle": "",
       "faq": [],
@@ -1738,7 +1738,7 @@ window.SITE = {
       "image": "assets/products/fb-reels-img-261013200000.webp",
       "link": "",
       "mark": "FR",
-      "name": "FB Reels Uploader",
+      "name": "Master REEL Uploader",
       "planGroups": [],
       "plans": [
         {
@@ -1788,7 +1788,7 @@ window.SITE = {
       "status": "ready",
       "steps": [],
       "stepsTitle": "",
-      "story": "ไม่ใช่การถ่ายคลิป แต่คือการนั่งกด “เพิ่มวิดีโอ → รอตรวจ → ถัดไป → พิมพ์แคปชั่น → เปิดป้าย AI → ปักลิงก์สินค้า → โพสต์” ซ้ำทุกคลิป ทุกวัน\nFB Reels Uploader ทำทุกขั้นตอนนี้แทนคุณ อัตโนมัติ",
+      "story": "ไม่ใช่การถ่ายคลิป แต่คือการนั่งกด “เพิ่มวิดีโอ → รอตรวจ → ถัดไป → พิมพ์แคปชั่น → เปิดป้าย AI → ปักลิงก์สินค้า → โพสต์” ซ้ำทุกคลิป ทุกวัน\nMaster REEL Uploader ทำทุกขั้นตอนนี้แทนคุณ อัตโนมัติ",
       "storyTitle": "งานที่กินเวลาที่สุดของคนทำแอฟฟิลิเอต",
       "tagline": "ลงคลิป Reels วันละหลายคลิป ปักลิงก์สินค้าให้อัตโนมัติ ไม่ต้องนั่งกดเอง",
       "trial": "",
@@ -2312,10 +2312,10 @@ window.SITE = {
         }
       ],
       "id": "fb-follow",
-      "image": "assets/products/fb-follow-img-261013200000.webp",
+      "image": "assets/products/fb-follow-img-261018220000.webp",
       "link": "",
       "mark": "FF",
-      "name": "FB Follow Assistant",
+      "name": "Master FB Follow Assistant",
       "planGroups": [],
       "plans": [
         {
@@ -2393,7 +2393,7 @@ window.SITE = {
         "เลือกเพจที่ต้องการ แล้วกด Enter"
       ],
       "stepsTitle": "ใช้งานง่าย",
-      "story": "อยากสร้างคอนเนกชันกับเพจในวงการเดียวกัน แต่ต้องนั่งเลื่อนจอ จิ้มปุ่ม Follow ทีละคน จนนิ้วล้า ตาลาย\nFB Follow Assistant ทำงานน่าเบื่อแทนคุณ",
+      "story": "อยากสร้างคอนเนกชันกับเพจในวงการเดียวกัน แต่ต้องนั่งเลื่อนจอ จิ้มปุ่ม Follow ทีละคน จนนิ้วล้า ตาลาย\nMaster FB Follow Assistant ทำงานน่าเบื่อแทนคุณ",
       "storyTitle": "เคยไหม?",
       "tagline": "เลิกนั่งจิ้ม Follow ทีละคน 1 Enter = กดครบทั้งหน้าจอ",
       "trial": "ทดลองใช้ฟรี 3 วัน",
@@ -2509,10 +2509,10 @@ window.SITE = {
         }
       ],
       "id": "shopee-uploader",
-      "image": "",
+      "image": "assets/products/shopee-uploader-img-261018220000.webp",
       "link": "",
       "mark": "SP",
-      "name": "อัพคลิป ปักตะกร้า Shopee",
+      "name": "Master Shopee Affiliation",
       "planGroups": [],
       "plans": [
         {
@@ -2903,7 +2903,7 @@ window.SITE = {
       "image": "assets/products/accounting-img-261013200000.webp",
       "link": "",
       "mark": "AC",
-      "name": "LINE OA Accounting",
+      "name": "Master Account",
       "planGroups": [],
       "plans": [
         {
@@ -3185,7 +3185,7 @@ window.SITE = {
       "image": "assets/products/kidthueng-img-261013200000.webp",
       "link": "",
       "mark": "💌",
-      "name": "ระบบคิดถึง",
+      "name": "Master คิดถึง",
       "planGroups": [
         {
           "name": "กลุ่มประหยัด",
@@ -3193,7 +3193,7 @@ window.SITE = {
         },
         {
           "name": "กลุ่มพรีเมียม",
-          "text": "ใช้ LINE ของระบบคิดถึง ไม่ต้องตั้งค่าอะไร ส่งได้มากกว่า เราดูแลให้ทั้งหมด"
+          "text": "ใช้ LINE ของ Master คิดถึง ไม่ต้องตั้งค่าอะไร ส่งได้มากกว่า เราดูแลให้ทั้งหมด"
         }
       ],
       "plans": [
@@ -3331,7 +3331,7 @@ window.SITE = {
         "ชวนลูกหลาน: ส่งลิงก์ให้ลูกหลานกดเพิ่มเพื่อน เสร็จแล้ว"
       ],
       "stepsTitle": "เริ่มได้ใน 3 ขั้นตอน",
-      "story": "มีคำพูดมากมายที่เราอยากบอกลูกหลาน “กินข้าวหรือยัง” “ตั้งใจเรียนนะ” “พ่อภูมิใจในตัวลูก”\nระบบคิดถึง ช่วยเก็บคำพูดเหล่านั้นไว้ แล้วส่งไปถึงคนที่คุณรัก ทีละข้อความ ทีละวัน ทุกครั้งที่เขาเปิด LINE จะได้เห็นชื่อและรูปของคุณ พร้อมคำพูดที่คุณตั้งใจฝากไว้ให้เขา",
+      "story": "มีคำพูดมากมายที่เราอยากบอกลูกหลาน “กินข้าวหรือยัง” “ตั้งใจเรียนนะ” “พ่อภูมิใจในตัวลูก”\nMaster คิดถึง ช่วยเก็บคำพูดเหล่านั้นไว้ แล้วส่งไปถึงคนที่คุณรัก ทีละข้อความ ทีละวัน ทุกครั้งที่เขาเปิด LINE จะได้เห็นชื่อและรูปของคุณ พร้อมคำพูดที่คุณตั้งใจฝากไว้ให้เขา",
       "storyTitle": "คำพูดที่อยากบอกลูกหลาน",
       "tagline": "ฝากข้อความและรูปไว้วันนี้ ระบบส่งถึงลูกหลานทาง LINE ทุกวัน",
       "trial": "ทดลองใช้ฟรี",
